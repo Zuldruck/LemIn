@@ -1,0 +1,10 @@
+*.o
+*.a
+.vscode
+.idea
+*~
+#*
+*#
+cmake-build-debug
+CMakeLists.txt
+gmin.pl
