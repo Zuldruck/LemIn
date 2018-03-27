@@ -5,7 +5,15 @@
 ## Makefile
 ##
 
-SRC	= 	src/main.c	\
+SRC	= 	src/main.c		\
+		src/rooms.c		\
+		src/get_rooms.c		\
+		src/my_lemin_tablen.c	\
+		src/read_file.c		\
+		src/get_ants.c		\
+		src/print_data.c	\
+		src/error_handling.c	\
+		src/get_links.c		\
 
 OBJ	=	$(SRC:.c=.o)
 

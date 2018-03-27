@@ -13,7 +13,6 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <sys/types.h>
-#include "get_next_line.h"
 #include "lemin.h"
 
 typedef struct tab_s {
@@ -61,5 +60,8 @@ int spec_plus(va_list, int);
 int spec_minus(va_list, int);
 int spec_hashtag(va_list, int);
 char **my_str_to_word_array(char *, char);
+char *get_next_line(int);
+void my_free_tab(char **);
+int my_tablen(char **);
 
 #endif   /* MY_H */
