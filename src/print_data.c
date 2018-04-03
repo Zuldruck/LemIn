@@ -7,16 +7,16 @@
 
 #include "lemin.h"
 
-void print_lemin_rooms(room_list_t *rooms)
+void print_lemin_rooms(next_list_t *rooms)
 {
 	my_printf("#rooms\n");
 	while (rooms) {
-		if (rooms->start)
+		if (rooms->data->start)
 			my_printf("##start\n");
-		else if (rooms->end)
+		else if (rooms->data->end)
 			my_printf("##end\n");
-		my_printf("%s %d %d\n", rooms->name, rooms->pos.x,
-							rooms->pos.y);
+		my_printf("%s %d %d\n", rooms->data->name, rooms->data->pos.x,
+							rooms->data->pos.y);
 		rooms = rooms->next;
 	}
 }

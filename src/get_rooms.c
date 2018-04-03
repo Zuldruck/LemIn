@@ -7,7 +7,7 @@
 
 #include "lemin.h"
 
-int fill_elem(room_list_t *room, char *buffer, bool start, bool end)
+int fill_elem(next_list_t *room, char *buffer, bool start, bool end)
 {
 	char **word_tab = my_str_to_word_array(buffer, ' ');
 
@@ -17,20 +17,25 @@ int fill_elem(room_list_t *room, char *buffer, bool start, bool end)
 		my_free_tab(word_tab);
 		return (84);
 	}
-	room->start = start;
-	room->end = end;
-	room->name = my_strdup(word_tab[0]);
-	room->pos = (pos_t){my_getnbr(word_tab[1]), my_getnbr(word_tab[2])};
+	room->data = malloc(sizeof(*room->data));
+	room->data->start = start;
+	room->data->end = end;
+	room->data->name = my_strdup(word_tab[0]);
+	room->data->pos = (pos_t){my_getnbr(word_tab[1]),
+				my_getnbr(word_tab[2])};
+	room->data->full = false;
+	room->data->next_list = NULL;
+	room->data->visited = false;
 	room->next = NULL;
 	my_free_tab(word_tab);
 	return (0);
 }
 
-int fill_room_list(room_list_t *rooms, char *buffer, bool start, bool end)
+int fill_room_list(next_list_t *rooms, char *buffer, bool start, bool end)
 {
-	room_list_t *new_room;
+	next_list_t *new_room;
 
-	if (!rooms->name) {
+	if (!rooms->data) {
 		if (fill_elem(rooms, buffer, start, end) == 84)
 			return (84);
 		return (0);
@@ -44,7 +49,7 @@ int fill_room_list(room_list_t *rooms, char *buffer, bool start, bool end)
 	return (0);
 }
 
-int check_command(char **buffer, room_list_t *rooms)
+int check_command(char **buffer, next_list_t *rooms)
 {
 	if (!my_strcmp(*buffer, "##start")) {
 		free(*buffer);		
@@ -75,12 +80,12 @@ int str_is_comment(char *str)
 	return (0);
 }
 
-room_list_t *get_rooms(void)
+next_list_t *get_rooms(void)
 {
-	room_list_t *rooms = malloc(sizeof(*rooms));
+	next_list_t *rooms = malloc(sizeof(*rooms));
 	char *buffer = get_next_line(0);
 
-	rooms->name = NULL;
+	rooms->data = NULL;
 	for (int a = 0; str_contain_space(buffer); buffer = get_next_line(0)) {
 		if (str_is_comment(buffer))
 			continue;

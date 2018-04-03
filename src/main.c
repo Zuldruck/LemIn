@@ -30,21 +30,29 @@
 
 void free_lemin(lemin_t *lemin)
 {
-	room_list_t *tmp;
+	next_list_t *tmp;
 
 	while (lemin->rooms) {
 		tmp = lemin->rooms;
 		lemin->rooms = lemin->rooms->next;
-		free(tmp->name);
+		free(tmp->data->name);
+		free(tmp->data);
 		free(tmp);
 	}
 }
 
-int main(void)
+int main(int ac, char **av)
 {
-	lemin_t *lemin = get_file_data();
-
-	if (lemin == NULL)
+	lemin_t *lemin;
+	
+	(void)av;
+	if (ac != 1)
+		return (84);
+	lemin = get_file_data();
+	if (lemin == NULL
+	|| connect_all_rooms(lemin->rooms, lemin->links) == 84
+	|| get_start_end_rooms(lemin) == 84
+	|| !check_link_start_end_rooms(lemin->start))
 		return (84);
 	print_lemin_data(lemin);
 	free_lemin(lemin);

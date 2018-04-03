@@ -14,10 +14,10 @@ int count_words(char *str, char separator)
 	int words = 0;
 
 	while (str[i]) {
-		if ((str[i] != separator & str[i] != '\t') && a == 0) {
+		if ((str[i] != separator) && a == 0) {
 			words += 1;
 			a = 1;
-		} else if (str[i] == separator || str[i] == '\t')
+		} else if (str[i] == separator)
 			a = 0;
 		i++;
 	}
@@ -31,9 +31,9 @@ char *count_letters(int *letters, char *str, char separator)
 	char *word;
 
 	*letters = 0;
-	while (str[i] == separator || str[i] == '\t')
+	while (str[i] == separator)
 		i++;
-	while ((str[i] != separator && str[i] != '\t') && str[i] != 0) {
+	while ((str[i] != separator) && str[i] != 0) {
 		i += 1;
 		*letters += 1;
 	}
@@ -41,8 +41,8 @@ char *count_letters(int *letters, char *str, char separator)
 	word = malloc(sizeof(char) * (*letters + 1));
 	if (word == NULL)
 		return (NULL);
-	for (j; str[j] == separator || str[j] == '\t'; j++);
-	for (i = j; (str[i] != separator && str[i] != '\t') && str[i] != 0; i++)
+	for (j; str[j] == separator; j++);
+	for (i = j; (str[i] != separator) && str[i] != 0; i++)
 		word[i - j] = str[i];
 	word[i - j] = 0;
 	return (word);
