@@ -50,15 +50,16 @@ int get_start_end_rooms(lemin_t *lemin)
 int check_link_start_end_rooms(room_t *rooms)
 {
 	static int end = 0;
+	next_list_t *tmp = rooms->next_list;
 
 	if (rooms->end)
 		end = 1;
 	if (rooms->visited)
 		return (0);
 	rooms->visited = true;
-	while (rooms->next_list) {
-		check_link_start_end_rooms(rooms->next_list->data);
-		rooms->next_list = rooms->next_list->next;
+	while (tmp) {
+		check_link_start_end_rooms(tmp->data);
+		tmp = tmp->next;
 	}
 	return (end);
 }

@@ -9,11 +9,13 @@
 
 void reset_visited(room_t *graph)
 {
+	next_list_t *tmp = graph->next_list;
+
 	if (!graph->visited)
 		return;
 	graph->visited = false;
-	while (graph->next_list) {
-		reset_visited(graph->next_list->data);
-		graph->next_list = graph->next_list->next;
+	while (tmp) {
+		reset_visited(tmp->data);
+		tmp = tmp->next;
 	}
 }

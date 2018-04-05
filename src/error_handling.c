@@ -30,3 +30,14 @@ int my_str_contain_char(char *str, char c)
 	}
 	return (0);
 }
+
+int lemin_tab_error(char **word_tab)
+{
+	if (my_lemin_tablen(word_tab) != 3
+	|| my_str_contain_char(word_tab[0], '-')
+	|| !my_str_isnum(word_tab[1]) || !my_str_isnum(word_tab[2])) {
+		my_free_tab(word_tab);
+		return (84);
+	}
+	return (0);
+}

@@ -54,7 +54,8 @@ link_t *get_links(char *first_link, bool first_entry)
 	}
 	links = malloc(sizeof(*links));
 	links->link_1 = NULL;
-	fill_link(links, first);
+	if (fill_link(links, first) == 84)
+		return (NULL);
 	for (first = get_next_line(0); first; first = get_next_line(0)) {
 		if (str_is_comment(first))
 			continue;

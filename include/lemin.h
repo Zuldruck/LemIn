@@ -15,6 +15,9 @@ typedef struct room_s room_t;
 typedef struct next_list_s next_list_t;
 typedef struct link_s link_t;
 typedef struct room_list_s room_list_t;
+typedef struct dijkstra_s dijkstra_t;
+typedef struct dijkstra_rooms_s dijkstra_rooms_t;
+typedef struct path_s path_t;
 
 typedef struct pos_s {	
 	int x;
@@ -34,11 +37,13 @@ typedef struct next_list_s {
 
 typedef struct room_s {
 	char *name;
+	int distance;
 	bool start;
 	bool end;
-	bool full;
+	int nb_ants;
 	bool visited;
 	pos_t pos;
+	room_t *visitor;
 	next_list_t *next_list;
 } room_t;
 
@@ -49,6 +54,14 @@ typedef struct lemin_s {
 	next_list_t *rooms;
 	link_t *links;
 } lemin_t;
+
+typedef struct path_s {
+	char *name;
+	int nb_ants;
+	int ants_visited;
+	path_t *prev;
+	path_t *next;
+} path_t;
 
 void print_room(room_t *);
 room_t *create_room(char *);
@@ -69,5 +82,8 @@ int connect_all_rooms(next_list_t *, link_t *);
 room_t *get_room(next_list_t *, char *);
 void reset_visited(room_t *);
 int check_link_start_end_rooms(room_t *);
+path_t *get_shortest_path(lemin_t *);
+int lemin_tab_error(char **);
+void print_fourmiz_path(lemin_t *);
 
 #endif /* LEMIN */

@@ -5,18 +5,20 @@
 ## Makefile
 ##
 
-SRC	= 	src/main.c			\
-		src/rooms.c			\
-		src/get_rooms.c			\
-		src/my_lemin_tablen.c		\
-		src/read_file.c			\
-		src/get_ants.c			\
-		src/print_data.c		\
-		src/error_handling.c		\
-		src/get_links.c			\
-		src/connect_rooms.c		\
-		src/get_start_end_rooms.c	\
-		src/reset_visited.c		\
+SRC	= 	src/main.c				\
+		src/rooms.c				\
+		src/get_rooms.c				\
+		src/my_lemin_tablen.c			\
+		src/read_file.c				\
+		src/get_ants.c				\
+		src/print_data.c			\
+		src/error_handling.c			\
+		src/get_links.c				\
+		src/connect_rooms.c			\
+		src/get_start_end_rooms.c		\
+		src/reset_visited.c			\
+		src/dijkstra/dijkstra.c			\
+		src/dijkstra/print_fourmiz_path.c	\
 
 OBJ	=	$(SRC:.c=.o)
 

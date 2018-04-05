@@ -11,21 +11,19 @@ int fill_elem(next_list_t *room, char *buffer, bool start, bool end)
 {
 	char **word_tab = my_str_to_word_array(buffer, ' ');
 
-	if (my_lemin_tablen(word_tab) != 3
-	|| my_str_contain_char(word_tab[0], '-')
-	|| !my_str_isnum(word_tab[1]) || !my_str_isnum(word_tab[2])) {
-		my_free_tab(word_tab);
+	if (lemin_tab_error(word_tab) == 84)
 		return (84);
-	}
 	room->data = malloc(sizeof(*room->data));
 	room->data->start = start;
 	room->data->end = end;
 	room->data->name = my_strdup(word_tab[0]);
 	room->data->pos = (pos_t){my_getnbr(word_tab[1]),
 				my_getnbr(word_tab[2])};
-	room->data->full = false;
+	room->data->nb_ants = 0;
 	room->data->next_list = NULL;
 	room->data->visited = false;
+	room->data->visitor = NULL;
+	room->data->distance = -1;
 	room->next = NULL;
 	my_free_tab(word_tab);
 	return (0);
