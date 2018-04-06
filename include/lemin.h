@@ -19,7 +19,7 @@ typedef struct dijkstra_s dijkstra_t;
 typedef struct dijkstra_rooms_s dijkstra_rooms_t;
 typedef struct path_s path_t;
 
-typedef struct pos_s {	
+typedef struct pos_s {
 	int x;
 	int y;
 } pos_t;

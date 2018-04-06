@@ -32,6 +32,7 @@ int fill_link(link_t *link, char *str)
 	}
 	if (!link->link_1) {
 		set_link(link, tab[0], tab[1]);
+		my_free_tab(tab);
 		return (0);
 	}
 	new_link = malloc(sizeof(*new_link));

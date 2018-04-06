@@ -23,9 +23,8 @@ do
     if [ $? -ne 124 ]
     then
 
-	timeout 30 ./lem_in < map > /dev/null
+	timeout 30 $1 < map > /dev/null
 	ret=$?
-
 
 	if [ $ret -eq 124 ]
 	then

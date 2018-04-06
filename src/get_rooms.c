@@ -50,8 +50,8 @@ int fill_room_list(next_list_t *rooms, char *buffer, bool start, bool end)
 int check_command(char **buffer, next_list_t *rooms)
 {
 	if (!my_strcmp(*buffer, "##start")) {
-		free(*buffer);		
-		*buffer = get_next_line(0);				
+		free(*buffer);
+		*buffer = get_next_line(0);
 		if (fill_room_list(rooms, *buffer, 1, 0) == 84)
 			return (84);
 		else

@@ -43,7 +43,7 @@ void print_my_graph_data(room_t *graph)
 		return;
 	graph->visited = true;
 	while (graph->next_list) {
-		my_printf("%s ->", graph->name);	
+		my_printf("%s ->", graph->name);
 		print_my_graph_data(graph->next_list->data);
 		graph->next_list = graph->next_list->next;
 	}

@@ -38,6 +38,18 @@ void move_fourmiz(path_t *path, int *ants)
 	my_putchar('\n');
 }
 
+void free_path(path_t *path)
+{
+	path_t *tmp;
+
+	while (path) {
+		tmp = path;
+		path = path->next;
+		free(tmp->name);
+		free(tmp);
+	}
+}
+
 void print_fourmiz_path(lemin_t *lemin)
 {
 	path_t *path = get_shortest_path(lemin);
@@ -46,4 +58,5 @@ void print_fourmiz_path(lemin_t *lemin)
 	my_printf("#moves\n");
 	while (ants_nbr)
 		move_fourmiz(path, &ants_nbr);
+	free_path(path);
 }
