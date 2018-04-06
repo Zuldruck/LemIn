@@ -52,14 +52,14 @@ int check_command(char **buffer, next_list_t *rooms)
 	if (!my_strcmp(*buffer, "##start")) {
 		free(*buffer);
 		*buffer = get_next_line(0);
-		if (fill_room_list(rooms, *buffer, 1, 0) == 84)
+		if (!*buffer || fill_room_list(rooms, *buffer, 1, 0) == 84)
 			return (84);
 		else
 			return (1);
 	} else if (!my_strcmp(*buffer, "##end")) {
 		free(*buffer);
 		*buffer = get_next_line(0);
-		if (fill_room_list(rooms, *buffer, 0, 1) == 84)
+		if (!*buffer || fill_room_list(rooms, *buffer, 0, 1) == 84)
 			return (84);
 		else
 			return (1);
@@ -84,6 +84,8 @@ next_list_t *get_rooms(void)
 	char *buffer = get_next_line(0);
 
 	rooms->data = NULL;
+	if (!buffer)
+		return (NULL);
 	for (int a = 0; str_contain_space(buffer); buffer = get_next_line(0)) {
 		if (str_is_comment(buffer))
 			continue;

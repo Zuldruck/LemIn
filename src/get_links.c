@@ -9,6 +9,10 @@
 
 void set_first_link(char **first_link, char *str)
 {
+	if (str == NULL) {
+		*first_link = NULL;
+		return;
+	}
 	*first_link = my_strdup(str);
 	free(str);
 }

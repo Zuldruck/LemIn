@@ -39,14 +39,19 @@ int check_rooms(next_list_t *rooms)
 
 lemin_t *get_file_data(void)
 {
-	int ants_nbr = get_ants_nbr();
-	next_list_t *rooms = get_rooms();
-	link_t *links = get_links(NULL, 0);
+	int ants_nbr = 0;
+	next_list_t *rooms = NULL;
+	link_t *links = NULL;
 	lemin_t *lemin;
 
-	if (ants_nbr <= 0 || !rooms || !links)
+	ants_nbr = get_ants_nbr();
+	if (ants_nbr <= 0)
 		return (NULL);
-	if (check_rooms(rooms) == 84)
+	rooms = get_rooms();
+	if (!rooms)
+		return (NULL);
+	links = get_links(NULL, 0);
+	if (!links || check_rooms(rooms) == 84)
 		return (NULL);
 	lemin = malloc(sizeof(*lemin));
 	lemin->ants_nbr = ants_nbr;
