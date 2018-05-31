@@ -64,14 +64,14 @@ typedef struct path_s {
 } path_t;
 
 void print_room(room_t *);
+void print_link(link_t *);
 room_t *create_room(char *);
 next_list_t *create_next(room_t *);
 void connect_rooms(room_t *, room_t *);
-void print_my_graph_data(room_t *);
 lemin_t *get_file_data(void);
 int get_ants_nbr(void);
 next_list_t *get_rooms(void);
-link_t *get_links(char *, bool);
+link_t *get_links(next_list_t *, char *, bool);
 int my_lemin_tablen(char **);
 void print_lemin_data(lemin_t *);
 int str_contain_space(char *);
@@ -85,5 +85,7 @@ int check_link_start_end_rooms(room_t *);
 path_t *get_shortest_path(lemin_t *);
 int lemin_tab_error(char **);
 void print_fourmiz_path(lemin_t *);
+int check_start_end(bool start, bool end);
+room_t *get_room_with_coor(next_list_t *rooms, pos_t pos);
 
 #endif /* LEMIN */

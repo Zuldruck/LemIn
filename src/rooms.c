@@ -7,11 +7,6 @@
 
 #include "lemin.h"
 
-void print_room(room_t *room)
-{
-	my_printf("%s\n", room->name);
-}
-
 next_list_t *create_next(room_t *data)
 {
 	next_list_t *room = malloc(sizeof(next_list_t));
@@ -36,22 +31,21 @@ void connect_rooms(room_t *room1, room_t *room2)
 	tmp->next = create_next(room2);
 }
 
-void print_my_graph_data(room_t *graph)
-{
-	print_room(graph);
-	if (graph->visited)
-		return;
-	graph->visited = true;
-	while (graph->next_list) {
-		my_printf("%s ->", graph->name);
-		print_my_graph_data(graph->next_list->data);
-		graph->next_list = graph->next_list->next;
-	}
-}
-
 room_t *get_room(next_list_t *rooms, char *name)
 {
-	while (rooms && my_strcmp(rooms->data->name, name))
+	if (!name)
+		return (NULL);
+	while (rooms && rooms->data && my_strcmp(rooms->data->name, name))
+		rooms = rooms->next;
+	if (rooms == NULL)
+		return (NULL);
+	return (rooms->data);
+}
+
+room_t *get_room_with_coor(next_list_t *rooms, pos_t pos)
+{
+	while (rooms && rooms->data && rooms->data->pos.x != pos.x
+	&& rooms->data->pos.y != pos.y)
 		rooms = rooms->next;
 	if (rooms == NULL)
 		return (NULL);

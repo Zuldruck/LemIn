@@ -51,7 +51,6 @@ int main(int ac, char **av)
 	|| !check_link_start_end_rooms(lemin->start))
 		return (84);
 	reset_visited(lemin->start);
-	print_lemin_data(lemin);
 	print_fourmiz_path(lemin);
 	free_lemin(lemin);
 	return (0);

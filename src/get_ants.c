@@ -23,5 +23,6 @@ int get_ants_nbr(void)
 	nbr = my_getnbr(str);
 	if (nbr <= 0)
 		return (-1);
+	my_printf("#number_of_ants\n%d\n", nbr);
 	return (nbr);
 }

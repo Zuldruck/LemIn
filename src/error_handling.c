@@ -41,3 +41,19 @@ int lemin_tab_error(char **word_tab)
 	}
 	return (0);
 }
+
+int check_start_end(bool start, bool end)
+{
+	static bool start_pass = 0;
+	static bool end_pass = 0;
+
+	if (start && start_pass)
+		return (1);
+	else if (end && end_pass)
+		return (1);
+	if (start)
+		start_pass = 1;
+	else if (end)
+		end_pass = 1;
+	return (0);
+}

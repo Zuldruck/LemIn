@@ -7,11 +7,9 @@
 
 #include "lemin.h"
 
-int fill_elem(next_list_t *room, char *buffer, bool start, bool end)
+int fill_elem(next_list_t *room, char **word_tab, bool start, bool end)
 {
-	char **word_tab = my_str_to_word_array(buffer, ' ');
-
-	if (lemin_tab_error(word_tab) == 84)
+	if (check_start_end(start, end))
 		return (84);
 	room->data = malloc(sizeof(*room->data));
 	room->data->start = start;
@@ -25,6 +23,7 @@ int fill_elem(next_list_t *room, char *buffer, bool start, bool end)
 	room->data->visitor = NULL;
 	room->data->distance = -1;
 	room->next = NULL;
+	print_room(room->data);
 	my_free_tab(word_tab);
 	return (0);
 }
@@ -32,14 +31,20 @@ int fill_elem(next_list_t *room, char *buffer, bool start, bool end)
 int fill_room_list(next_list_t *rooms, char *buffer, bool start, bool end)
 {
 	next_list_t *new_room;
+	char **word_tab = my_str_to_word_array(buffer, ' ');
 
 	if (!rooms->data) {
-		if (fill_elem(rooms, buffer, start, end) == 84)
+		if (lemin_tab_error(word_tab) == 84
+		|| fill_elem(rooms, word_tab, start, end) == 84)
 			return (84);
 		return (0);
 	}
+	if (lemin_tab_error(word_tab) == 84 || get_room(rooms, word_tab[0])
+	|| get_room_with_coor(rooms, (pos_t){my_getnbr(word_tab[1]),
+				my_getnbr(word_tab[2])}))
+		return (84);
 	new_room = malloc(sizeof(*new_room));
-	if (fill_elem(new_room, buffer, start, end) == 84)
+	if (fill_elem(new_room, word_tab, start, end) == 84)
 		return (84);
 	while (rooms->next)
 		rooms = rooms->next;
@@ -84,7 +89,7 @@ next_list_t *get_rooms(void)
 	char *buffer = get_next_line(0);
 
 	rooms->data = NULL;
-	if (!buffer)
+	if (!buffer || !str_contain_space(buffer))
 		return (NULL);
 	for (int a = 0; str_contain_space(buffer); buffer = get_next_line(0)) {
 		if (str_is_comment(buffer))
@@ -97,6 +102,6 @@ next_list_t *get_rooms(void)
 		}
 		free(buffer);
 	}
-	get_links(buffer, 1);
+	get_links(rooms, buffer, 1);
 	return (rooms);
 }

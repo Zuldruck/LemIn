@@ -7,32 +7,28 @@
 
 #include "lemin.h"
 
-void print_lemin_rooms(next_list_t *rooms)
+void print_room(room_t *room)
 {
-	my_printf("#rooms\n");
-	while (rooms) {
-		if (rooms->data->start)
-			my_printf("##start\n");
-		else if (rooms->data->end)
-			my_printf("##end\n");
-		my_printf("%s %d %d\n", rooms->data->name, rooms->data->pos.x,
-							rooms->data->pos.y);
-		rooms = rooms->next;
+	static int pass = 0;
+
+	if (pass == 0) {
+		my_printf("#rooms\n");
+		pass = 1;
 	}
+	if (room->start)
+		my_printf("##start\n");
+	else if (room->end)
+		my_printf("##end\n");
+	my_printf("%s %d %d\n", room->name, room->pos.x, room->pos.y);
 }
 
-void print_lemin_links(link_t *links)
+void print_link(link_t *link)
 {
-	my_printf("#tunnels\n");
-	while (links) {
-		my_printf("%s-%s\n", links->link_1, links->link_2);
-		links = links->next;
-	}
-}
+	static int pass = 0;
 
-void print_lemin_data(lemin_t *lemin)
-{
-	my_printf("#number_of_ants\n%d\n", lemin->ants_nbr);
-	print_lemin_rooms(lemin->rooms);
-	print_lemin_links(lemin->links);
+	if (pass == 0) {
+		my_printf("#tunnels\n");
+		pass = 1;
+	}
+	my_printf("%s-%s\n", link->link_1, link->link_2);
 }

@@ -37,6 +37,24 @@ int check_rooms(next_list_t *rooms)
 	return (0);
 }
 
+int verif_start_end(next_list_t *rooms)
+{
+	int start = 0;
+	int end = 0;
+	next_list_t *list = rooms;
+
+	while (list) {
+		if (list->data->start)
+			start += 1;
+		else if (list->data->end)
+			end += 1;
+		list = list->next;
+	}
+	if (start == 1 && end == 1)
+		return (1);
+	return (0);
+}
+
 lemin_t *get_file_data(void)
 {
 	int ants_nbr = 0;
@@ -48,10 +66,10 @@ lemin_t *get_file_data(void)
 	if (ants_nbr <= 0)
 		return (NULL);
 	rooms = get_rooms();
-	if (!rooms)
+	if (!rooms || check_rooms(rooms) == 84 || !verif_start_end(rooms))
 		return (NULL);
-	links = get_links(NULL, 0);
-	if (!links || check_rooms(rooms) == 84)
+	links = get_links(rooms, NULL, 0);
+	if (!links)
 		return (NULL);
 	lemin = malloc(sizeof(*lemin));
 	lemin->ants_nbr = ants_nbr;
